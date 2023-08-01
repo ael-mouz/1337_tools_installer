@@ -1,12 +1,10 @@
 #!/bin/bash
 
-
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 BOLD='\033[1m'
 RESET='\033[0m'
-
 
 print_error() {
     echo -e "${RED}${BOLD}Error:${RESET} $1"
@@ -68,41 +66,45 @@ install_valgrind() {
     print_success "Valgrind installed successfully."
 }
 
-clear
+while true; do
+    clear
+    echo -e "${BOLD}Select an option to install the desired package:${RESET}"
+    echo -e " ${BOLD}[0]${RESET} - ${GREEN}Homebrew${RESET}"
+    echo -e " ${BOLD}[1]${RESET} - ${GREEN}Readline${RESET}"
+    echo -e " ${BOLD}[2]${RESET} - ${GREEN}Valgrind${RESET}"
+    echo -e " ${BOLD}[3]${RESET} - ${RED}Exit${RESET}"
 
-echo -e "${BOLD}Select an option to install the desired package:${RESET}"
-echo -e " ${BOLD}[0]${RESET} - ${GREEN}Homebrew${RESET}"
-echo -e " ${BOLD}[1]${RESET} - ${GREEN}Readline${RESET}"
-echo -e " ${BOLD}[2]${RESET} - ${GREEN}Valgrind${RESET}"
-echo -e " ${BOLD}[3]${RESET} - ${RED}Exit${RESET}"
+    read -p  "Enter your choice: " choice
 
-read -p  "Enter your choice: " choice
+    case $choice in
+        0)
+            install_local_brew
+            echo -e "${GREEN}${BOLD}Setup complete.${RESET}"
+            break
+            ;;
 
-case $choice in
-    0)
-        install_local_brew
-        echo -e "${GREEN}${BOLD}Setup complete.${RESET}"
-        ;;
+        1)
+            install_local_brew
+            install_readline
+            echo -e "${GREEN}${BOLD}Setup complete.${RESET}"
+            break
+            ;;
 
-    1)
-        install_local_brew
-        install_readline
-        echo -e "${GREEN}${BOLD}Setup complete.${RESET}"
-        ;;
+        2)
+            install_local_brew
+            install_valgrind
+            echo -e "${GREEN}${BOLD}Setup complete.${RESET}"
+            break
+            ;;
 
-    2)
-        install_local_brew
-        install_valgrind
-        echo -e "${GREEN}${BOLD}Setup complete.${RESET}"
-        ;;
+        3)
+            echo -e "${RED}${BOLD}Exiting...${RESET}"
+            exit 0
+            ;;
 
-    3)
-        echo -e "${RED}${BOLD}Exiting...${RESET}"
-        ;;
-
-    *)
-        print_error "Invalid choice. Exiting..."
-        exit 1
-        ;;
-esac
-
+        *)
+            print_error "Invalid choice. Please try again."
+            sleep 1
+            ;;
+    esac
+done
