@@ -74,37 +74,37 @@ while true; do
     echo -e " ${BOLD}[2]${RESET} - ${GREEN}Valgrind${RESET}"
     echo -e " ${BOLD}[3]${RESET} - ${RED}Exit${RESET}"
 
-    read -p  "Enter your choice: " choice
+    read -p "Enter your choice: " choice
 
     case $choice in
-        0)
-            install_local_brew
-            echo -e "${GREEN}${BOLD}Setup complete.${RESET}"
-            break
-            ;;
+    0)
+        install_local_brew
+        echo -e "${GREEN}${BOLD}Setup complete.${RESET}"
+        break
+        ;;
 
-        1)
-            install_local_brew
-            install_readline
-            echo -e "${GREEN}${BOLD}Setup complete.${RESET}"
-            break
-            ;;
+    1)
+        install_local_brew
+        install_readline
+        echo -e "${GREEN}${BOLD}Setup complete.${RESET}"
+        break
+        ;;
 
-        2)
-            install_local_brew
-            install_valgrind
-            echo -e "${GREEN}${BOLD}Setup complete.${RESET}"
-            break
-            ;;
+    2)
+        install_local_brew
+        install_valgrind
+        echo -e "${GREEN}${BOLD}Setup complete.${RESET}"
+        break
+        ;;
 
-        3)
-            echo -e "${RED}${BOLD}Exiting...${RESET}"
-            exit 0
-            ;;
+    3)
+        echo -e "${RED}${BOLD}Exiting...${RESET}"
+        exit 0
+        ;;
 
-        *)
-            print_error "Invalid choice. Please try again."
-            sleep 1
-            ;;
+    *)
+        print_error "Invalid choice. Please try again."
+        sleep 1
+        ;;
     esac
 done
