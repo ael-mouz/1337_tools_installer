@@ -6,6 +6,9 @@ install_local_brew() {
         curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
     else
         echo "Homebrew is already installed."
+        echo "Updating Homebrew..."
+        brew update
+        brew upgrade
     fi
 }
 
@@ -22,15 +25,38 @@ install_valgrind() {
     brew upgrade --fetch-HEAD LouisBrunner/valgrind/valgrind
 }
 
-echo "Checking and installing required packages..."
+clear
 
-install_local_brew
+echo "Select an option to install the desired package:"
+echo "0 - brew"
+echo "1 - readline"
+echo "2 - valgrind"
+echo "3 - exit"
 
-echo "Updating Homebrew..."
-brew update
-brew upgrade
+read -p "Enter your choice: " choice
 
-install_readline
-install_valgrind
+case $choice in
+    0)
+        install_local_brew
+        ;;
+
+    1)
+        install_local_brew
+        install_readline
+        ;;
+
+    2)
+        install_local_brew
+        install_valgrind
+        ;;
+
+    3)
+        echo "Exiting..."
+        ;;
+
+    *)
+        echo "Invalid choice. Exiting..."
+        ;;
+esac
 
 echo "Setup complete."
